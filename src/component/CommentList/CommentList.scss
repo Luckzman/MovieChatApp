@@ -1,0 +1,12 @@
+.list{
+  height: 250px;
+  overflow-y: auto;
+  .list-item{
+    text-align: left;
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+  }
+}
+.input{
+  margin-top: 20px;
+}
