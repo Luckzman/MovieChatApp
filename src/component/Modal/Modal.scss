@@ -18,6 +18,13 @@
     border-radius: 6px;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
     z-index: 3;
+    .comment{
+      margin-top: 10px;
+    }
+    h4{
+      margin-top: 10px;
+      color: rgb(116, 115, 115);
+    }
     .close {
       position: absolute;
       width: 20px;

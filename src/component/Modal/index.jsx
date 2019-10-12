@@ -12,7 +12,8 @@ function Modal({ children, movieTitle, hideModal, classes }) {
     <div className="overlay">
       <div className={`cart-modal ${classes}`}>
         <button type="button" className="close" onClick={hideModal}>&times;</button>
-        <h3>{`${movieTitle} Comment`}</h3>
+        <h3 className="comment">Movie Comments</h3>
+        <h4>{movieTitle}</h4>
         <div className="modalContent">
           {children}
         </div>
