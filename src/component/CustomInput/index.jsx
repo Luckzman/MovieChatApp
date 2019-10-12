@@ -1,23 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { Input } from 'semantic-ui-react';
 
 
-const CustomInput = ({placeholder, showBtn}) => {
+const CustomInput = ({name, value, placeholder, showBtn, onChange, onSubmit}) => {
   const InputBtnType = (
     <div class="ui action input">
-      <input type="text" value="" placeholder={placeholder} />
+      <input
+        type="text"
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder} />
       
-        <button class="ui teal icon right labeled button">
+        <button type="submit" onSubmit={onSubmit} class="ui blue icon right labeled button">
           <i aria-hidden="true" class="comment alternate icon"></i>
           Comment
         </button>
     </div>
   );
 
+  const NormalInput = (
+    <div class="ui input">
+      <input 
+        type="text"
+        value={value}
+        name={name}
+        placeholder={placeholder}
+        onChange={onChange} />
+    </div>
+  )
 
 
-  return showBtn ? InputBtnType : <Input placeholder={placeholder} />
+  return showBtn ? InputBtnType : NormalInput
 };
 
 
