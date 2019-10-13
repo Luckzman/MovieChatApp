@@ -6,10 +6,13 @@ import {
   updateMovieComment
 } from '../../utils/firebaseHelpers';
 
+export const commentLoader = {
+  type: actionTypes.FETCH_COMMENTS_LOADING,
+}
 
 export const fetchComments = (title) => {
   return (dispatch) => {
-    console.log(title, 'title')
+    dispatch(commentLoader);
     return getMovieComment(title)
       .get().then((querySnapshot) => {
         if(!querySnapshot.empty){
@@ -34,56 +37,50 @@ export const fetchComments = (title) => {
 }
 
 export const addComment = (comment, title) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
+    dispatch(commentLoader)
     return getMovieComment(title)
     .get().then((querySnapshot) => {
-      // console.log(doc.id, 'update')
       if(querySnapshot.empty){
         return addMovieComment({comment, title})
-        .then((doc) => {
-            console.log(doc.id, 'add')
-            dispatch({
-              type: actionTypes.ADD_COMMENT_SUCCESS,
-              payload: {message:"comment added successfully",
-              comment}
+          .then((doc) => {
+              dispatch({
+                type: actionTypes.ADD_COMMENT_SUCCESS,
+                payload: {message:"comment added successfully",
+                comment}
+              })
             })
-          })
-          .catch(error => {
-            dispatch({
-              type: actionTypes.ADD_COMMENT_FAILURE,
-              payload: error
+            .catch(error => {
+              dispatch({
+                type: actionTypes.ADD_COMMENT_FAILURE,
+                payload: error
+              })
             })
-          })
-          
-        } else {
+      } else {
             querySnapshot.forEach(doc => {
-              console.log(comment[0],'coment1')
               return updateMovieComment(doc.id)
               .update({
                 comment: firebase.firestore.FieldValue.arrayUnion(comment[0])
               }).then(() => {
-                console.log([...doc.data().comment, comment[0]],'getState')
-
-            dispatch({
-              type: actionTypes.UPDATE_COMMENT_SUCCESS,
-              payload: {message: "comment updated successfully",
-              comment: [...doc.data().comment, comment[0]]}
+                dispatch({
+                  type: actionTypes.UPDATE_COMMENT_SUCCESS,
+                  payload: {message: "comment updated successfully",
+                  comment: [...doc.data().comment, comment[0]]}
+                })
+              })
+              .catch(error => {
+                dispatch({
+                  type: actionTypes.UPDATE_COMMENT_FAILURE,
+                  payload: error
+                })
+              }) 
             })
-          })
-          .catch(error => {
-            console.log(error)
-            dispatch({
-              type: actionTypes.UPDATE_COMMENT_FAILURE,
-              payload: error
-            })
-          }) 
-        })
-            }
+        }
       })
       .catch(function(error) {dispatch({
-          type: actionTypes.FETCH_COMMENTS_FAILURE,
-          payload: error.response
-        })
-      });
+        type: actionTypes.FETCH_COMMENTS_FAILURE,
+        payload: error.response
+      })
+    });
   }
 }

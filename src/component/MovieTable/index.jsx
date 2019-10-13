@@ -12,7 +12,12 @@ class MovieTable extends Component {
     pageOfItems: []
   }
 
-
+ /**
+   * @method handleChange
+   * @description This method get user input value from input element
+   * @param {object} event This is the event object
+   * @return {null}
+   */
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -20,8 +25,13 @@ class MovieTable extends Component {
     this.filterMovie(e.target.value);
   }
 
+  /**
+   * @description the method handles the filter of movies by their title
+   * @method filterMovie
+   * @param {string} input - take the parameter of the input
+   * 
+   */
   filterMovie = (input) => {
-    console.log(this.state.movie.length, 'movielength')
     if(this.state.movie.length > 0) {
       this.setState(() => ({
         movie: this.props.movieData.filter((movie) => (movie.title.toLowerCase().includes(input.toLowerCase())))
@@ -29,10 +39,22 @@ class MovieTable extends Component {
     }
   }
 
+  /**
+   * @method onChangePage
+   * @description This method handles pagination of the json data
+   * @param {number} pageOfItems - keep the current page of paginated data
+   * @return {null}
+   */
   onChangePage = (pageOfItems) => {
     this.setState({ pageOfItems: pageOfItems });
   }
 
+   /**
+   * @method filterByGenre
+   * @description This method filter comment by genre
+   * @param {string} value - input is from the selected dropdown
+   * @return {null}
+   */
   filterByGenre = (value) => {
     const {movie} = this.state;
     this.setState(() => ({
@@ -59,7 +81,7 @@ class MovieTable extends Component {
               </tr>
             </thead>
             <tbody className="">
-              <tr className="">
+              <tr className="filter-row">
                 <td className="">
                   <form onSubmit={this.handleSubmit}>
                     <CustomInput
@@ -75,7 +97,7 @@ class MovieTable extends Component {
               </tr>
               {pageOfItems.map((movie, index) => {
                 return(<tr key={`movie${index}`} className="table-body">
-                  <td className="title" onClick={() => triggerModal(movie.title)}>{movie.title}</td>
+                  <td data-test="movie-title" className="title" onClick={() => triggerModal(movie.title)}>{movie.title}</td>
                   <td className="">{movie.year}</td>
                   <td className="">{movie.runtime}</td>
                   <td className="">{movie.revenue}</td>

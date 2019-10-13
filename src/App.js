@@ -8,7 +8,7 @@ import moviesJson from './utils/movies.json';
 import './App.scss';
 import CommentList from './component/CommentList';
 
-class App extends Component {
+export class App extends Component {
 
   constructor(props) {
     super(props);
@@ -18,6 +18,9 @@ class App extends Component {
     }
   }
   
+  /**
+   * @description - close modal when this function is called
+   */
   handleCloseModal = () => {
     const {showModal} = this.state;
     this.setState(() => ({
@@ -25,6 +28,9 @@ class App extends Component {
     }))
   }
   
+  /**
+   * @description - Toggle modal state if opened or closed and also dispatch fetch comment action
+   */
   handleTriggerModal = (movieTitle) => {
     const {showModal} = this.state;
     this.setState(() => ({

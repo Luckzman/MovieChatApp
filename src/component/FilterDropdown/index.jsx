@@ -14,12 +14,18 @@ const options = [
   { key: 10, text: 'Music', value: 10 },
 ]
 
+
 export default class FilterDropdown extends Component {
   state = {text: ''}
 
+   /**
+   * @method handleChange
+   * @description This method get user input value from input element
+   * @param {object} event This is the event object
+   * @return {null}
+   */
   handleChange = (e) => {
     this.setState({ text: e.target.children[0].innerText }, () => {this.props.getDropdownValue(this.state.text)})
-    
   }
 
   render() {

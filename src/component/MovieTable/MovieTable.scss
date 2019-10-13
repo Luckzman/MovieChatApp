@@ -14,6 +14,9 @@
       padding: 16px;
     }
     tbody{
+      .filter-row{
+        background-color: #e7e7e7;
+      }
       tr{
         &:hover{
           background-color: #e7e7e7;
