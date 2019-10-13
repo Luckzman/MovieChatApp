@@ -2,6 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 
+/**
+ * @description - This input renders input with button component
+ * @param {object} props
+ * @returns {JSX}
+ */
 const CustomInput = ({name, value, placeholder, showBtn, onChange, onSubmit}) => {
   const InputBtnType = (
     <div class="ui action input">
@@ -20,7 +25,7 @@ const CustomInput = ({name, value, placeholder, showBtn, onChange, onSubmit}) =>
   );
 
   const NormalInput = (
-    <div class="ui input">
+    <div data-test="normal-input" class="ui input">
       <input 
         type="text"
         value={value}
@@ -29,7 +34,6 @@ const CustomInput = ({name, value, placeholder, showBtn, onChange, onSubmit}) =>
         onChange={onChange} />
     </div>
   )
-
 
   return showBtn ? InputBtnType : NormalInput
 };
